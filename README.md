@@ -1,5 +1,32 @@
 # moe-theme
 <a href="https://raw.github.com/kuanyui/moe-theme.el/master/pics/moe-theme.png"><img src="https://raw.github.com/kuanyui/moe-theme.el/master/pics/moe-theme.png" width="720" height="401"/></a>
+
+>**Table of Contents**
+- [moe-theme](#moe-theme)
+  - [Screenshot](#screenshot)
+  - [What Special?](#what-special)
+  - [Support](#support)
+  - [Requirements](#requirements)
+  - [Download](#download)
+    - [Via package.el](#via-packageel)
+    - [Manually](#manually)
+  - [Customizations](#customizations)
+    - [Resize Titles](#resize-titles)
+    - [Colorful Mode-line and Powerline](#colorful-mode-line-and-powerline)
+      - [Powerline](#powerline)
+    - [Too Yellow Background?](#too-yellow-background)
+    - [Highlight Buffer-id on Mode-line?](#highlight-buffer-id-on-mode-line)
+  - [Have A Good Mood Today?](#have-a-good-mood-today)
+    - [Live in Antarctica?](#live-in-antarctica)
+  - [Notes](#notes)
+    - [No 256-Color Output?](#no-256-color-output)
+    - [Paren](#paren)
+    - [Not supported the mode(s) you're using?](#not-supported-the-modes-youre-using)
+  - [Known Issues](#known-issues)
+  - [Todo](#todo)
+  - [License](#license)
+
+
 ## Screenshot
 <a href="https://raw.github.com/kuanyui/moe-theme.el/master/pics/dark01.png"><img src="pics/dark01.png" width="355" height="192"/></a>
 <a href="https://raw.github.com/kuanyui/moe-theme.el/master/pics/light01.png"><img src="pics/light01.png" width="355" height="192"/></a>
@@ -33,13 +60,13 @@
 * Helm / ido
 * Org-mode / Agenda / calfw
 * Magit / Git-commit / Git-gutter
-* Markdown-mode
-* popup / Auto-complete-mode
+* Markdown-mode / ReStructText-mode
+* Auto-complete-mode / Company
 * Rainbow-delimiters
 * Swoop
 * Twittering-mode
-* undo-tree
-* Ruby / Haskell / CPerl / Tuareg
+* undo-tree / Neotree
+* Ruby / Haskell / CPerl / Tuareg / Web-mode
 * ......and More!
 
 ## Requirements
@@ -63,13 +90,36 @@ Download the archive of `moe-theme` (or `git clone` it) to `~/.emacs.d/moe-theme
 ## Customizations
 It's impossible to satisfy everyone with one fixed theme, but `moe-theme` provide some easy ways to customize itself.
 
-Select a theme you like and let's go on:
+There's a full customization example:
 
 ```lisp
+    ;; If you want to use powerline, (require 'powerline) must be
+    ;; before (require 'moe-theme).
+    (add-to-list 'load-path "~/.emacs.d/PATH/TO/powerline/")
+    (require 'powerline)
+
+    ;; Moe-theme
+    (add-to-list 'custom-theme-load-path "~/.emacs.d/PATH/TO/moe-theme/")
+    (add-to-list 'load-path "~/.emacs.d/PATH/TO/moe-theme/")
     (require 'moe-theme)
-    ;; Choose the one you like, (moe-light) or (moe-dark)
+
+    ;; Show highlighted buffer-id as decoration. (Default: nil)
+    (setq moe-theme-highlight-buffer-id t)
+    
+    ;; Resize titles (optional).
+    (setq moe-theme-resize-markdown-title '(1.5 1.4 1.3 1.2 1.0 1.0))
+    (setq moe-theme-resize-org-title '(1.5 1.4 1.3 1.2 1.1 1.0 1.0 1.0 1.0))
+    (setq moe-theme-resize-rst-title '(1.5 1.4 1.3 1.2 1.1 1.0))
+
+    ;; Choose a color for mode-line.(Default: blue)
+    (moe-theme-set-color 'cyan)
+
+    ;; Finally, apply moe-theme now.
+    ;; Choose what you like, (moe-light) or (moe-dark)
     (moe-light)
 ```
+
+If you have any question about settings, go on and read following README to get more detailed information first.
 
 >#### Note
 >**Notice that the file `moe-theme.el` is NOT a theme file, but it provide the ability for customization `moe-dark-theme` & `moe-light-theme`.**
@@ -77,6 +127,8 @@ Select a theme you like and let's go on:
 >So, if you just want to use `load-theme` to apply **ONLY** `moe-theme` itself and **without customizations**, you can skip "Customizations" chapter and just use this:
 >
 >```lisp
+>    (add-to-list 'custom-theme-load-path "~/.emacs.d/PATH/TO/moe-theme/")
+> 
 >    (load-theme 'moe-dark t)
 >    ;;or
 >    (load-theme 'moe-light t)
@@ -93,6 +145,8 @@ You may want to resize titles in `markdown-mode`, `org-mode`, or `ReStructuredTe
 ```
 
 >Markdown should have 6 items; org has 9 items; rst has 6 items.
+>
+>Make sure that these resizing settings should be placed **before** `(moe-dark)` or `(moe-light)`.
 
 The values should be lists. Larger the values, larger the fonts.
 If you don't like this, just leave them nil, and all the titles will be the same size.
@@ -112,7 +166,7 @@ Mayby you'll like `M-x` `moe-theme-random-color`, too; which gives you a random 
 #### Powerline
 Now `moe-theme` supports [Powerline](https://github.com/milkypostman/powerline), which makes mode-line looks fabulous! We recommended installing `powerline` and run `powerline-moe-theme`.
 
->**Confirm that `(require 'powerline)` must before `(require 'moe-theme)`. Otherwise, `powerline-moe-theme` will not be initallized.**
+>Make sure that `(require 'powerline)` must be placed **before** `(require 'moe-theme)`. Otherwise, `powerline-moe-theme` will not be initallized.
 
 You can add this line to your init file:
 
